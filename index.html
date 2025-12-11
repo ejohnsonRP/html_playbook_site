@@ -95,15 +95,18 @@
       position: relative;
     }
 
-    /* Hotspot positioned over the blue "Strategic Alternatives" box */
+    /* Hotspot positioned over the blue "Strategic Alternatives" box
+       (percent values may need tiny tweaks, but this is much closer) */
     .strategic-hotspot {
       position: absolute;
-      top: 50%;        /* tweak these later if you want better alignment */
-      left: 12%;
-      width: 10%;
-      height: 15%;
+      top: 59%;       /* move up/down */
+      left: 18%;      /* move left/right */
+      width: 8%;      /* width of the hot area */
+      height: 17%;    /* height of the hot area */
       cursor: pointer;
       background: rgba(0,0,0,0); /* invisible */
+      /* To debug position, temporarily use:
+         background: rgba(255,0,0,0.2); */
     }
 
     /* Simple modal background */
@@ -117,13 +120,14 @@
       z-index: 999;
     }
 
-    /* Modal content box */
+    /* Modal content box – smaller now */
     .modal-content {
       background: #fff;
       padding: 15px;
-      max-width: 800px;
-      width: 90%;
+      max-width: 600px;   /* smaller than before */
+      width: 70%;
       border-radius: 4px;
+      position: relative; /* so arrow can attach to it */
     }
 
     .modal-content img {
@@ -136,6 +140,19 @@
       font-size: 20px;
       cursor: pointer;
       margin-bottom: 8px;
+    }
+
+    /* Arrow “tail” showing popup pointing back toward the source box */
+    .modal-arrow {
+      position: absolute;
+      left: -20px;     /* stick out on the left side */
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0;
+      height: 0;
+      border-top: 10px solid transparent;
+      border-bottom: 10px solid transparent;
+      border-right: 20px solid #ffffff; /* same color as modal background */
     }
   </style>
 </head>
@@ -187,9 +204,10 @@
   <!-- Popup modal -->
   <div class="modal" id="strategicModal">
     <div class="modal-content">
+      <div class="modal-arrow"></div> <!-- little arrow tail -->
       <div class="modal-close" id="strategicClose">×</div>
 
-      <!-- Actual popup image -->
+      <!-- Popup image (now smaller via CSS above) -->
       <img src="https://raw.githubusercontent.com/ejohnsonRP/html_playbook_site/main/Stage1010.png"
            alt="Strategic Alternatives Details">
     </div>
@@ -218,7 +236,7 @@
 
       // ===== modal for Strategic Alternatives =====
       var hotspot = document.querySelector('.strategic-hotspot');
-      var modal = document.getElementById('strategicModal');
+      var modal   = document.getElementById('strategicModal');
       var closeBtn = document.getElementById('strategicClose');
 
       if (hotspot && modal) {
@@ -246,6 +264,8 @@
 
 </body>
 </html>
+
+
 
 
 
