@@ -9,12 +9,11 @@
       padding: 0;
       background: #ffffff;
       font-family: Arial, sans-serif;
-      /* Smooth one-section-at-a-time behavior */
       scroll-snap-type: y mandatory;
       overflow-y: scroll;
     }
 
-    /* Overall wrapper – wide enough for the bottom image */
+    /* Overall wrapper */
     .wrapper {
       max-width: 1400px;
       margin: 0 auto;
@@ -33,13 +32,13 @@
       margin: 20px 0;
     }
 
-    /* BIGGER logo in the top left */
+    /* Bigger logo in top left */
     .header img {
       width: 200px;
       height: auto;
     }
 
-    /* Shared caption style for both text lines */
+    /* Shared caption style – same for both */
     .section-caption {
       font-size: 18px;
       font-weight: 600;
@@ -47,17 +46,17 @@
       margin: 10px 0 20px 0;
     }
 
-    /* Each main block behaves like a full “screen” */
+    /* Each main block = full “screen” */
     .section-block {
       min-height: 100vh;
       scroll-snap-align: start;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
-      padding-bottom: 60px; /* creates space so images don’t crowd the edge */
+      padding: 40px 0 80px; /* top + bottom space to avoid crowding */
       opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
+      transform: translateY(50px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
     }
 
     .section-block.visible {
@@ -65,16 +64,21 @@
       transform: translateY(0);
     }
 
-    /* TOP image slightly less wide */
+    /* Top image slightly less wide */
     .top-image-wrap {
-      max-width: 900px;  /* narrower than wrapper */
+      max-width: 850px;
       margin: 0 auto;
     }
 
-    /* BOTTOM image wider – spans almost entire wrapper */
+    /* Bottom image wider */
     .bottom-image-wrap {
       max-width: 1400px;
       margin: 0 auto;
+    }
+
+    /* Center content vertically in second section for that “framed” feel */
+    .second-section {
+      justify-content: center;
     }
   </style>
 </head>
@@ -105,12 +109,12 @@
 
     <!-- ===== SECOND SECTION (Image 2) ===== -->
     <div class="section-block second-section">
-      <!-- Caption above second image (same style) -->
+      <!-- Caption above second image -->
       <p class="section-caption">
         Click on a blue box below to open up the associated task page for each stage.
       </p>
 
-      <!-- Second image: wider, takes nearly full width -->
+      <!-- Second image: wider and centered with white space around it -->
       <div class="bottom-image-wrap">
         <img 
           src="https://github.com/ejohnsonRP/html_playbook_site/raw/main/Stages.png?raw=1"
@@ -121,7 +125,7 @@
 
   </div> <!-- wrapper -->
 
-  <!-- Scroll-triggered animation for BOTH sections (up and down) -->
+  <!-- Scroll-triggered animation for both sections -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       var sections = document.querySelectorAll('.section-block');
@@ -134,11 +138,9 @@
         entries.forEach(function (entry) {
           if (entry.isIntersecting) {
             entry.target.classList.add('visible');
-          } else {
-            entry.target.classList.remove('visible');
           }
         });
-      }, { threshold: 0.5 });
+      }, { threshold: 0.3 });
 
       sections.forEach(function (section) {
         observer.observe(section);
@@ -148,6 +150,7 @@
 
 </body>
 </html>
+
 
 
 
