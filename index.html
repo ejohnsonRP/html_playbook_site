@@ -9,9 +9,12 @@
       padding: 0;
       background: #ffffff;
       font-family: Arial, sans-serif;
+      /* Smooth one-section-at-a-time behavior */
+      scroll-snap-type: y mandatory;
+      overflow-y: scroll;
     }
 
-    /* Wide wrapper for the full-page layout */
+    /* Overall wrapper – wide enough for the bottom image */
     .wrapper {
       max-width: 1400px;
       margin: 0 auto;
@@ -30,49 +33,45 @@
       margin: 20px 0;
     }
 
-    /* BIGGER logo per your request (previously 160px) */
+    /* BIGGER logo in the top left */
     .header img {
-      width: 190px;
+      width: 200px;
       height: auto;
     }
 
-    /* Unified caption styling — EXACT same for both captions */
+    /* Shared caption style for both text lines */
     .section-caption {
-      font-size: 18px;        /* consistent size */
-      font-weight: 600;       /* consistent weight */
-      color: #444444;         /* consistent color */
-      margin: 10px 0 20px 0;  /* consistent spacing */
+      font-size: 18px;
+      font-weight: 600;
+      color: #444444;
+      margin: 10px 0 20px 0;
     }
 
-    .top-section {
+    /* Each main block behaves like a full “screen” */
+    .section-block {
       min-height: 100vh;
+      scroll-snap-align: start;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
-      padding-bottom: 60px; /* ensures scroll is required */
-    }
-
-    /* FIRST image narrower */
-    .top-image-wrap {
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-
-    /* SECOND section fade-in */
-    .second-section {
-      margin-top: 40px;
-      padding-bottom: 40px;
+      padding-bottom: 60px; /* creates space so images don’t crowd the edge */
       opacity: 0;
       transform: translateY(40px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
+      transition: opacity 0.6s ease, transform 0.6s ease;
     }
 
-    .second-section.visible {
+    .section-block.visible {
       opacity: 1;
       transform: translateY(0);
     }
 
-    /* SECOND image is wider */
+    /* TOP image slightly less wide */
+    .top-image-wrap {
+      max-width: 900px;  /* narrower than wrapper */
+      margin: 0 auto;
+    }
+
+    /* BOTTOM image wider – spans almost entire wrapper */
     .bottom-image-wrap {
       max-width: 1400px;
       margin: 0 auto;
@@ -83,70 +82,73 @@
 
   <div class="wrapper">
 
-    <!-- ===== TOP SECTION (full screen height) ===== -->
-    <div class="top-section">
-
-      <!-- Logo in top-left -->
+    <!-- ===== TOP SECTION (Image 1) ===== -->
+    <div class="section-block top-section">
+      <!-- Logo -->
       <div class="header">
         <img src="https://raw.githubusercontent.com/ejohnsonRP/html_playbook_site/main/RP%20Logo.png" alt="The Point logo">
       </div>
 
-      <!-- Caption above first image (unified styling) -->
+      <!-- Caption above first image -->
       <p class="section-caption">
         Scroll down to see the respective stages for each phase.
       </p>
 
-      <!-- FIRST (chevron) image -->
+      <!-- First (chevron) image: intentionally narrower -->
       <div class="top-image-wrap">
         <img 
           src="https://raw.githubusercontent.com/ejohnsonRP/html_playbook_site/main/m-a-phases.png"
           alt="M&A Phase Flow"
         >
       </div>
-
     </div>
 
-    <!-- ===== SECOND SECTION (fades in on scroll) ===== -->
-    <div class="second-section">
-
-      <!-- Caption above second image (same CSS as first caption) -->
+    <!-- ===== SECOND SECTION (Image 2) ===== -->
+    <div class="section-block second-section">
+      <!-- Caption above second image (same style) -->
       <p class="section-caption">
         Click on a blue box below to open up the associated task page for each stage.
       </p>
 
-      <!-- SECOND image, intentionally wider -->
+      <!-- Second image: wider, takes nearly full width -->
       <div class="bottom-image-wrap">
         <img 
           src="https://github.com/ejohnsonRP/html_playbook_site/raw/main/Stages.png?raw=1"
           alt="Phase Stages Diagram"
         >
       </div>
-
     </div>
 
   </div> <!-- wrapper -->
 
-  <!-- Fade-in animation based on scroll -->
+  <!-- Scroll-triggered animation for BOTH sections (up and down) -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      var secondSection = document.querySelector('.second-section');
-      if (!secondSection) return;
+      var sections = document.querySelectorAll('.section-block');
+      if (!sections.length) return;
+
+      // Make the first section visible immediately
+      sections[0].classList.add('visible');
 
       var observer = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
           if (entry.isIntersecting) {
-            secondSection.classList.add('visible');
-            observer.unobserve(secondSection);
+            entry.target.classList.add('visible');
+          } else {
+            entry.target.classList.remove('visible');
           }
         });
-      }, { threshold: 0.2 });
+      }, { threshold: 0.5 });
 
-      observer.observe(secondSection);
+      sections.forEach(function (section) {
+        observer.observe(section);
+      });
     });
   </script>
 
 </body>
 </html>
+
 
 
 
