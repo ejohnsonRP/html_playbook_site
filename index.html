@@ -11,7 +11,7 @@
       font-family: Arial, sans-serif;
     }
     .wrapper {
-      max-width: 882px;   /* matches your image width */
+      max-width: 1000px;   /* slightly wider so your chevron image appears larger */
       margin: 0 auto;
     }
     img {
@@ -23,17 +23,16 @@
     .header {
       display: flex;
       align-items: center;
-      gap: 10px;
       margin: 20px 0;
     }
     .header img {
-      width: 90px; /* adjust to match real size */
+      width: 130px; /* increased size of logo */
       height: auto;
     }
-    .title {
-      font-size: 28px;
-      font-weight: 600;
-      color: #333;
+    .intro-text {
+      font-size: 16px;
+      color: #444;
+      margin: 10px 0 20px 0;
     }
   </style>
 </head>
@@ -41,13 +40,17 @@
 
   <div class="wrapper">
 
-    <!-- ===== HEADER (logo + 'The Point') ===== -->
+    <!-- ===== HEADER WITH LOGO ONLY ===== -->
     <div class="header">
-      <!-- Replace with your GitHub URL for RP logo -->
       <img src="https://raw.githubusercontent.com/ejohnsonRP/html_playbook_site/main/RP%20Logo.png" alt="The Point logo">
     </div>
 
-    <!-- ===== MAIN CHEVRON IMAGE (non-clickable) ===== -->
+    <!-- ===== INTRO LINE ABOVE BLUE GRAPHIC ===== -->
+    <p class="intro-text">
+      Scroll down to see the respective stages for each phase.
+    </p>
+
+    <!-- ===== MAIN CHEVRON IMAGE (slightly larger) ===== -->
     <img 
       src="https://raw.githubusercontent.com/ejohnsonRP/html_playbook_site/main/m-a-phases.png"
       alt="M&A Phase Flow"
@@ -57,5 +60,7 @@
 
 </body>
 </html>
+
+
 
 
