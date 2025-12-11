@@ -11,6 +11,7 @@
       font-family: Arial, sans-serif;
       scroll-snap-type: y mandatory;
       overflow-y: scroll;
+      overflow-x: hidden; /* PREVENT LEFT–RIGHT SCROLLING */
     }
 
     /* Overall wrapper */
@@ -47,7 +48,7 @@
       margin: 10px 0 20px 0;
     }
 
-    /* Sections behave as full-page panels */
+    /* Sections behave as full “pages” */
     .section-block {
       min-height: 100vh;
       scroll-snap-align: start;
@@ -77,10 +78,10 @@
       margin: 0 auto;
     }
 
-    /* Add MORE white space under Image 2 */
+    /* Reduced white space under image 2 for cleaner centering */
     .second-section {
       justify-content: center;
-      padding-bottom: 200px;  /* was 80px — now much bigger */
+      padding-bottom: 120px; /* was 200px */
     }
 
     /* Footer bottom-right */
@@ -137,12 +138,13 @@
 
   </div> <!-- wrapper -->
 
-  <!-- Scroll animation -->
+  <!-- Scroll-triggered animation for both sections -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       var sections = document.querySelectorAll('.section-block');
       if (!sections.length) return;
 
+      // Make the first section visible immediately
       sections[0].classList.add('visible');
 
       var observer = new IntersectionObserver(function (entries) {
@@ -161,6 +163,7 @@
 
 </body>
 </html>
+
 
 
 
