@@ -11,8 +11,9 @@
       font-family: Arial, sans-serif;
     }
 
+    /* Overall page wrapper – wide enough for big bottom image */
     .wrapper {
-      max-width: 1400px;   /* larger so second image is easier to read */
+      max-width: 1400px;
       margin: 0 auto;
     }
 
@@ -29,27 +30,37 @@
       margin: 20px 0;
     }
 
+    /* Bigger “The Point” logo */
     .header img {
-      width: 130px; /* logo size */
+      width: 160px;
       height: auto;
     }
 
-    .intro-text {
+    /* Shared caption style for both images */
+    .intro-text,
+    .second-text {
       font-size: 16px;
       color: #444;
       margin: 10px 0 20px 0;
     }
 
-    /* Top section should take at least one full viewport height
-       so users must scroll to reach the second image */
+    /* Top section fills the first screen and leaves white space
+       so the second image is off-screen initially */
     .top-section {
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
+      padding-bottom: 60px; /* extra white space at bottom */
     }
 
-    /* Second section: larger image + spacing */
+    /* Make the FIRST image narrower */
+    .top-image-wrap {
+      max-width: 1000px;   /* narrower than wrapper */
+      margin: 0 auto;      /* center it */
+    }
+
+    /* Second section: fade-in animation + wider image */
     .second-section {
       margin-top: 40px;
       padding-bottom: 40px;
@@ -63,11 +74,10 @@
       transform: translateY(0);
     }
 
-    .second-text {
-      font-size: 18px;
-      margin-bottom: 15px;
-      font-weight: 600;
-      color: #333;
+    /* Make the LAST image as wide as the wrapper */
+    .bottom-image-wrap {
+      max-width: 1400px;  /* same as wrapper, so it's wider than the top image */
+      margin: 0 auto;
     }
   </style>
 </head>
@@ -82,34 +92,39 @@
         <img src="https://raw.githubusercontent.com/ejohnsonRP/html_playbook_site/main/RP%20Logo.png" alt="The Point logo">
       </div>
 
-      <!-- Intro text above first image -->
+      <!-- Caption above first image -->
       <p class="intro-text">
         Scroll down to see the respective stages for each phase.
       </p>
 
-      <!-- Main chevron image -->
-      <img 
-        src="https://raw.githubusercontent.com/ejohnsonRP/html_playbook_site/main/m-a-phases.png"
-        alt="M&A Phase Flow"
-      >
+      <!-- First (chevron) image, intentionally narrower -->
+      <div class="top-image-wrap">
+        <img 
+          src="https://raw.githubusercontent.com/ejohnsonRP/html_playbook_site/main/m-a-phases.png"
+          alt="M&A Phase Flow"
+        >
+      </div>
     </div>
 
     <!-- ===== SECOND SECTION (appears on scroll with fade) ===== -->
     <div class="second-section">
+      <!-- Caption above second image (same style as intro-text) -->
       <p class="second-text">
         Click on a blue box below to open up the associated task page for each stage.
       </p>
 
-      <!-- Replace with your actual raw URL for the stages image if different -->
-      <img 
-        src="https://github.com/ejohnsonRP/html_playbook_site/raw/main/Stages.png?raw=1"
-        alt="Phase Stages Diagram"
-      >
+      <!-- Second image, wider than the top one -->
+      <div class="bottom-image-wrap">
+        <img 
+          src="https://github.com/ejohnsonRP/html_playbook_site/raw/main/Stages.png?raw=1"
+          alt="Phase Stages Diagram"
+        >
+      </div>
     </div>
 
   </div> <!-- wrapper -->
 
-  <!-- Simple scroll-triggered fade-in for the second section -->
+  <!-- Scroll-triggered fade-in for the second section -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       var secondSection = document.querySelector('.second-section');
@@ -130,6 +145,7 @@
 
 </body>
 </html>
+
 
 
 
