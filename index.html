@@ -10,29 +10,64 @@
       background: #ffffff;
       font-family: Arial, sans-serif;
     }
+
     .wrapper {
-      max-width: 1000px;   /* makes both images appear larger */
+      max-width: 1400px;   /* larger so second image is easier to read */
       margin: 0 auto;
     }
+
     img {
       width: 100%;
       height: auto;
       display: block;
       border: 0;
     }
+
     .header {
       display: flex;
       align-items: center;
       margin: 20px 0;
     }
+
     .header img {
-      width: 130px; /* bigger logo */
+      width: 130px; /* logo size */
       height: auto;
     }
+
     .intro-text {
       font-size: 16px;
       color: #444;
       margin: 10px 0 20px 0;
+    }
+
+    /* Top section should take at least one full viewport height
+       so users must scroll to reach the second image */
+    .top-section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    /* Second section: larger image + spacing */
+    .second-section {
+      margin-top: 40px;
+      padding-bottom: 40px;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .second-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .second-text {
+      font-size: 18px;
+      margin-bottom: 15px;
+      font-weight: 600;
+      color: #333;
     }
   </style>
 </head>
@@ -40,44 +75,63 @@
 
   <div class="wrapper">
 
-    <!-- ===== HEADER WITH LOGO ONLY ===== -->
-    <div class="header">
-      <img src="https://raw.githubusercontent.com/ejohnsonRP/html_playbook_site/main/RP%20Logo.png" alt="The Point logo">
-    </div>
+    <!-- ===== TOP SECTION (fills first screen) ===== -->
+    <div class="top-section">
+      <!-- Header with logo only -->
+      <div class="header">
+        <img src="https://raw.githubusercontent.com/ejohnsonRP/html_playbook_site/main/RP%20Logo.png" alt="The Point logo">
+      </div>
 
-    <!-- ===== INTRO TEXT ===== -->
-    <p class="intro-text">
-      Scroll down to see the respective stages for each phase.
-    </p>
-
-    <!-- ===== MAIN CHEVRON IMAGE (non-clickable) ===== -->
-    <img 
-      src="https://raw.githubusercontent.com/ejohnsonRP/html_playbook_site/main/m-a-phases.png"
-      alt="M&A Phase Flow"
-    >
-
-
-    <!-- ========================= -->
-    <!-- SECOND SCROLL-DOWN IMAGE -->
-    <!-- ========================= -->
-
-    <div class="second-section" style="margin-top: 60px; padding-bottom: 40px;">
-      <p style="font-size: 18px; margin-bottom: 15px; font-weight: 600; color: #333;">
-        Detailed Phase Stages
+      <!-- Intro text above first image -->
+      <p class="intro-text">
+        Scroll down to see the respective stages for each phase.
       </p>
 
-      <!-- Replace with your GitHub raw URL for Stages.png -->
+      <!-- Main chevron image -->
       <img 
-        src="https://raw.githubusercontent.com/ejohnsonRP/html_playbook_site/main/Stages.png"
+        src="https://raw.githubusercontent.com/ejohnsonRP/html_playbook_site/main/m-a-phases.png"
+        alt="M&A Phase Flow"
+      >
+    </div>
+
+    <!-- ===== SECOND SECTION (appears on scroll with fade) ===== -->
+    <div class="second-section">
+      <p class="second-text">
+        Click on a blue box below to open up the associated task page for each stage.
+      </p>
+
+      <!-- Replace with your actual raw URL for the stages image if different -->
+      <img 
+        src="https://github.com/ejohnsonRP/html_playbook_site/raw/main/Stages.png?raw=1"
         alt="Phase Stages Diagram"
-        style="width: 100%; height: auto; display: block; border: 0;"
       >
     </div>
 
   </div> <!-- wrapper -->
 
+  <!-- Simple scroll-triggered fade-in for the second section -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var secondSection = document.querySelector('.second-section');
+      if (!secondSection) return;
+
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            secondSection.classList.add('visible');
+            observer.unobserve(secondSection);
+          }
+        });
+      }, { threshold: 0.2 });
+
+      observer.observe(secondSection);
+    });
+  </script>
+
 </body>
 </html>
+
+
 
 
 
