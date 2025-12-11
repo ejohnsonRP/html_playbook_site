@@ -17,6 +17,7 @@
     .wrapper {
       max-width: 1400px;
       margin: 0 auto;
+      position: relative;
     }
 
     img {
@@ -32,13 +33,13 @@
       margin: 20px 0;
     }
 
-    /* Bigger logo in top left */
+    /* Bigger logo */
     .header img {
       width: 200px;
       height: auto;
     }
 
-    /* Shared caption style – same for both */
+    /* Unified caption style */
     .section-caption {
       font-size: 18px;
       font-weight: 600;
@@ -46,14 +47,14 @@
       margin: 10px 0 20px 0;
     }
 
-    /* Each main block = full “screen” */
+    /* Sections behave as full-page panels */
     .section-block {
       min-height: 100vh;
       scroll-snap-align: start;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
-      padding: 40px 0 80px; /* top + bottom space to avoid crowding */
+      padding: 40px 0 80px;
       opacity: 0;
       transform: translateY(50px);
       transition: opacity 0.7s ease, transform 0.7s ease;
@@ -64,7 +65,7 @@
       transform: translateY(0);
     }
 
-    /* Top image slightly less wide */
+    /* Top image slightly narrower */
     .top-image-wrap {
       max-width: 850px;
       margin: 0 auto;
@@ -76,9 +77,20 @@
       margin: 0 auto;
     }
 
-    /* Center content vertically in second section for that “framed” feel */
+    /* Add MORE white space under Image 2 */
     .second-section {
       justify-content: center;
+      padding-bottom: 200px;  /* was 80px — now much bigger */
+    }
+
+    /* Footer bottom-right */
+    .footer {
+      width: 100%;
+      text-align: right;
+      font-size: 14px;
+      color: #666;
+      padding: 20px 10px 40px 10px;
+      position: relative;
     }
   </style>
 </head>
@@ -88,17 +100,14 @@
 
     <!-- ===== TOP SECTION (Image 1) ===== -->
     <div class="section-block top-section">
-      <!-- Logo -->
       <div class="header">
         <img src="https://raw.githubusercontent.com/ejohnsonRP/html_playbook_site/main/RP%20Logo.png" alt="The Point logo">
       </div>
 
-      <!-- Caption above first image -->
       <p class="section-caption">
         Scroll down to see the respective stages for each phase.
       </p>
 
-      <!-- First (chevron) image: intentionally narrower -->
       <div class="top-image-wrap">
         <img 
           src="https://raw.githubusercontent.com/ejohnsonRP/html_playbook_site/main/m-a-phases.png"
@@ -109,12 +118,10 @@
 
     <!-- ===== SECOND SECTION (Image 2) ===== -->
     <div class="section-block second-section">
-      <!-- Caption above second image -->
       <p class="section-caption">
         Click on a blue box below to open up the associated task page for each stage.
       </p>
 
-      <!-- Second image: wider and centered with white space around it -->
       <div class="bottom-image-wrap">
         <img 
           src="https://github.com/ejohnsonRP/html_playbook_site/raw/main/Stages.png?raw=1"
@@ -123,15 +130,19 @@
       </div>
     </div>
 
+    <!-- ===== FOOTER ===== -->
+    <div class="footer">
+      ©2025 RGP. All Rights Reserved.
+    </div>
+
   </div> <!-- wrapper -->
 
-  <!-- Scroll-triggered animation for both sections -->
+  <!-- Scroll animation -->
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       var sections = document.querySelectorAll('.section-block');
       if (!sections.length) return;
 
-      // Make the first section visible immediately
       sections[0].classList.add('visible');
 
       var observer = new IntersectionObserver(function (entries) {
@@ -150,6 +161,7 @@
 
 </body>
 </html>
+
 
 
 
