@@ -93,6 +93,48 @@
       padding: 20px 10px 40px 10px;
       position: relative;
     }
+    /* Hotspot positioned over the blue "Strategic Alternatives" box */
+.strategic-hotspot {
+  position: absolute;
+  top: 50%;        /* adjust these values later if needed */
+  left: 12%;
+  width: 10%;
+  height: 15%;
+  cursor: pointer;
+  background: rgba(0,0,0,0); /* invisible */
+}
+
+/* Simple modal background */
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* Modal content box */
+.modal-content {
+  background: #fff;
+  padding: 15px;
+  max-width: 800px;
+  width: 90%;
+  border-radius: 4px;
+}
+
+.modal-content img {
+  width: 100%;
+  height: auto;
+}
+
+.modal-close {
+  text-align: right;
+  font-size: 20px;
+  cursor: pointer;
+  margin-bottom: 8px;
+}
   </style>
 </head>
 <body>
@@ -122,12 +164,15 @@
       <p class="section-caption">
         Click on a blue box below to open up the associated task page for each stage.
       </p>
-
-      <div class="bottom-image-wrap">
+    
+      <div class="bottom-image-wrap" style="position: relative;">
         <img 
           src="https://raw.githubusercontent.com/ejohnsonRP/html_playbook_site/main/stagesflow.png"
           alt="Phase Stages Diagram"
         >
+      <!-- Clickable area over "Strategic Alternatives" -->
+      <div class="strategic-hotspot"></div>
+      
       </div>
     </div>
 
@@ -159,10 +204,32 @@
         observer.observe(section);
       });
     });
+    
+    // Open modal when hotspot is clicked
+document.querySelector('.strategic-hotspot')
+  .addEventListener('click', function () {
+    document.getElementById('strategicModal').style.display = 'flex';
+  });
+
+// Close modal function
+window.closeStrategic = function () {
+  document.getElementById('strategicModal').style.display = 'none';
+};
+
   </script>
+<!-- Popup modal -->
+<div class="modal" id="strategicModal">
+  <div class="modal-content">
+    <div class="modal-close" onclick="closeStrategic()">×</div>
+
+    <!-- Replace this image URL when you upload the task package image -->
+    <img src="STRATEGIC_IMAGE_URL_HERE" alt="Strategic Alternatives Details">
+  </div>
+</div>
 
 </body>
 </html>
+
 
 
 
