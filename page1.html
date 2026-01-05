@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=1270, initial-scale=1.0" />
+  <title>Desktop 1 - Methodology By Phase & Stage</title>
+  <style>
+    :root{
+      --nav-blue:#002060;
+      --band-purple:#7030A0;
+      --phase-blue:#2962FF;
+      --phase-teal:#009688;
+      --phase-green:#4CAF50;
+      --phase-orange:#FF9800;
+      --phase-red:#D32F2F;
+      --shadow:0 4px 4px rgba(0,0,0,.25);
+      --text:#000;
+      --white:#fff;
+    }
+
+    body{
+      margin:0;
+      background:#f4f4f4;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Desktop - 1 */
+    .desktop-1{
+      position:relative;
+      width:1270px;
+      height:621px;
+      margin:0 auto;
+      background:#fff;
+      overflow:hidden;
+    }
+
+    /* Logo area (swap to your real logo asset) */
+    .logo{
+      position:absolute;
+      left:0;
+      top:0;
+      width:251px;
+      height:68px;
+      display:flex;
+      align-items:center;
+      padding-left:12px;
+      box-sizing:border-box;
+    }
+    .logo img{
+      max-height:48px;
+      max-width:230px;
+      object-fit:contain;
+    }
+    .logo .fallback{
+      font-weight:700;
+      font-size:24px;
+      color:#1a1a1a;
+    }
+
+    /* Title */
+    .title{
+      position:absolute;
+      left:372px;
+      top:1px;
+      width:539px;
+      height:85px;
+      display:flex;
+      align-items:center;
+      font-family: Inter, Arial, sans-serif;
+      font-weight:700;
+      font-size:35px;
+      line-height:150%;
+      color:var(--text);
+      white-space:nowrap;
+    }
+
+    /* Highlight bar behind instruction */
+    .highlight{
+      position:absolute;
+      left:310px;
+      top:68px;
+      width:615px;
+      height:36px;
+      background:rgba(247,255,0,0.54);
+      opacity:.5;
+      border-radius:2px;
+    }
+
+    /* Instruction text */
+    .instruction{
+      position:absolute;
+      left:328px;
+      top:44px;
+      width:647px;
+      height:85px;
+      display:flex;
+      align-items:center;
+      font-family: Inter, Arial, sans-serif;
+      font-weight:400;
+      font-size:20px;
+      line-height:150%;
+      color:var(--text);
+      white-space:nowrap;
+      pointer-events:none;
+    }
+
+    /* Chevron block wrapper */
+    .chevron-wrap{
+      position:absolute;
+      left:49px;
+      top:115px;
+      width:1185px;
+      height:381px;
+    }
+
+    /* Top and bottom bands */
+    .top-parallelogram{
+        position:absolute;
+        left:-45px;
+        top:10px;
+        width:1250px;
+        height:175px;
+        background: var(--nav-blue);
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        /*slant the left side*/
+        clip-path: polygon(
+            0% 0%,
+            96% 0%, 
+            100% 100%,
+            4% 100%
+        );
+    }
+
+    .bottom-parallelogram{
+        position: absolute;
+        left:-45px;
+        top: 185px;
+        width: 1250px;
+        height: 175px;
+        background: #7030A0;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        /*slant the right side*/
+        clip-path: polygon(
+            4% 0%,
+            100% 0%,
+            96% 100%,
+            0% 100%
+        );
+    }
+
+    /* Phase chevrons */
+    .phase-row{
+      position:absolute;
+      left:0px;
+      top:70px;    
+      height:229.44px;
+      display:flex;
+      align-items: center;
+      gap: 0px;
+      z-index:2;
+    }
+    .phase{
+        margin-left: -20px;
+    }
+    .phase.first{
+        margin-left: 0px;
+    }
+    .phase.last{
+        margin-right: 0px;
+    }
+
+    .phase{
+      position:relative;
+      width:250px;
+      height:229.44px;
+      box-shadow:var(--shadow);
+      clip-path: polygon(
+        0% 0%,
+        88% 0%,
+        100% 50%,
+        88% 100%,
+        0% 100%,
+        12% 50%
+      );
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:0 22px;
+      box-sizing:border-box;
+    }
+
+    .phase h3{
+      margin:0;
+      text-align:center;
+      font-size:22px;
+      line-height:110%;
+      font-weight:700;
+      color:#fff;
+    }
+
+    /* Band labels */
+    .band-label{
+      position:absolute;
+      left:35.56px; /* 84.56 global minus wrap offset */
+      display:flex;
+      align-items:center;
+      font-weight:700;
+      font-size:28px;
+      line-height:110%;
+      color:#fff;
+      z-index:3;
+      white-space:nowrap;
+    }
+
+    .band-label.top{
+      top:29.27px; /* 144.27 global minus wrap offset */
+    }
+    .band-label.bottom{
+      top:322.01px; /* 437.01 global minus wrap offset */
+    }
+
+    /* Arrow down */
+    .arrow{
+      position:absolute;
+      left:642px;
+      top:550px;
+      width:0;
+      height:0;
+      z-index:5;
+    }
+    .arrow::before{
+      content:"";
+      position:absolute;
+      left:-3px;
+      top:-60px;
+      width:6px;
+      height:60px;
+      background:#000;
+      border-radius:2px;
+    }
+    .arrow::after{
+      content:"";
+      position:absolute;
+      left:-14px;
+      top:0px;
+      width:0;
+      height:0;
+      border-left:14px solid transparent;
+      border-right:14px solid transparent;
+      border-top:18px solid #000;
+    }
+
+    /* white block from your Rectangle 37 (not visible in the screenshot, but included) */
+    .rect-37{
+      position:absolute;
+      left:346px;
+      top:495px;
+      width:592px;
+      height:126px;
+      background:#fff;
+      z-index:1;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="desktop-1">
+    <!-- Logo -->
+    <div class="logo">
+      <!-- Replace with your logo file -->
+      <!-- <img src="image.png" alt="The Point Logo"> -->
+      <div class="fallback">The Point</div>
+    </div>
+
+    <!-- Title + instruction -->
+    <div class="title">Methodology By Phase &amp; Stage</div>
+    <div class="highlight"></div>
+    <div class="instruction">Click the black arrow below to open the detailed phase level view</div>
+
+    <a href="page2.html" class="arrow-link">
+    <div class="rect-37"></div>
+    </a>
+
+    <!-- Chevron area -->
+    <div class="chevron-wrap">
+      <div class="top-parallelogram"></div>
+      <div class="bottom-parallelogram"></div>
+
+      <div class="band-label top">6. Program Management &amp; Governance</div>
+      <div class="band-label bottom">7. Culture &amp; Change Management</div>
+
+      <div class="phase-row">
+        <div class="phase first" style="background:var(--phase-blue);">
+          <h3>1. Strategy &amp;<br/>Target Assessment</h3>
+        </div>
+        <div class="phase" style="background:var(--phase-teal);">
+          <h3>2. Valuation &amp;<br/>Deal Structuring</h3>
+        </div>
+        <div class="phase" style="background:var(--phase-green);">
+          <h3>3. Due Diligence,<br/>Negotiations &amp; Agreement</h3>
+        </div>
+        <div class="phase" style="background:var(--phase-orange);">
+          <h3>4. Regulatory<br/>Approvals &amp; Closing</h3>
+        </div>
+        <div class="phase last" style="background:var(--phase-red);">
+          <h3>5. Post-Merger<br/>Integration &amp; Value Realization</h3>
+        </div>
+      </div>
+    </div>
+
+    <!-- Down arrow -->
+    <div class="arrow" aria-hidden="true"></div>
+  </div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
